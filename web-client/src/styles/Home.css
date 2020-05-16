@@ -1,0 +1,16 @@
+@media all and (min-width: 480px) {
+    .Home {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        min-height: 70vh;
+    }
+    .Logo {
+        max-width: 100vh;
+    }
+
+    .buttons {
+        margin: 10px
+    }
+}

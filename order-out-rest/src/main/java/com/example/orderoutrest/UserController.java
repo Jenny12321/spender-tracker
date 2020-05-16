@@ -10,16 +10,14 @@ import org.jooq.*;
 import org.jooq.conf.ParamType;
 import org.jooq.impl.DSL;
 import org.jooq.impl.SQLDataType;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import static org.jooq.impl.DSL.*;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.Statement;
 
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
 public class UserController {
     static String expensesTableName = Expenses.tableName;
@@ -115,9 +113,7 @@ public class UserController {
                     .getQuery()
                     .fetch();
 
-            if (existingUser.isEmpty()) {
-                return new UserAuth(null, "User not found", false);
-            } else if (!existingUser.getValues("password").get(0).toString().equals(password)) {
+            if (existingUser.isEmpty() || !existingUser.getValues("password").get(0).toString().equals(password)) {
                 return new UserAuth(null, "Incorrect password", false);
             }
             return new UserAuth(user, "200", true);

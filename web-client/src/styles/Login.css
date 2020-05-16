@@ -1,0 +1,15 @@
+@media all and (min-width: 480px) {
+    .LoginForm, .RegisterForm{
+        padding: 60px 0;
+    }
+
+    .LoginForm form, .RegisterForm form {
+        margin: 0 auto;
+        max-width: 320px;
+        text-align: center;
+    }
+
+    .UserAlert {
+        margin-top: 1rem;
+    }
+}
