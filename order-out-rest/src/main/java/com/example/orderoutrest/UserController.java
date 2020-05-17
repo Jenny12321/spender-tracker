@@ -71,19 +71,20 @@ public class UserController {
                     .column(Expenses.id, SQLDataType.VARCHAR(255))
                     .column(Expenses.vendor, SQLDataType.VARCHAR(255))
                     .column(Expenses.date, SQLDataType.VARCHAR(32))
-                    .column(Expenses.cost, SQLDataType.DECIMAL(2))
+                    .column(Expenses.cost, SQLDataType.DECIMAL(100, 2))
                     .getSQL(ParamType.INLINED);
             statement.execute(createTableQ);
 
             // Create progress table
             Table progressTable = table(progressTableName);
-            createTableQ = create.createTable(progressTable)
+            String createTableQProg = create.createTable(progressTable)
                     .column(Progress.percentOrder, SQLDataType.INTEGER)
-                    .column(Progress.budget, SQLDataType.DECIMAL(2))
+                    .column(Progress.budget, SQLDataType.DECIMAL(100, 0))
+                    .column(Progress.spent, SQLDataType.DECIMAL(100, 0))
                     .column(Progress.cookCount, SQLDataType.INTEGER)
                     .column(Progress.orderCount, SQLDataType.INTEGER)
                     .getSQL(ParamType.INLINED);
-            statement.execute(createTableQ);
+            statement.execute(createTableQProg);
 
             return new UserAuth(user, "200", true);
         } catch (Exception e) {

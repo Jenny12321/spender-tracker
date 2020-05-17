@@ -32,7 +32,6 @@ export default function LoginForm() {
             success: function(response){
                 let k=response;
                 if (k.success) {
-                    // TODO: change
                     history.push('/home');
                     setValidated(true);
                     setError("");

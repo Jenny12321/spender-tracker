@@ -3,10 +3,10 @@ import './App.css';
 import FadeIn from 'react-fade-in';
 import {Button, ButtonGroup} from "react-bootstrap";
 import history from './history';
-import Home from "./containers/Home";
+import Landing from "./containers/Landing";
 
 function App() {
-    return (<Home/>);
+    return (<Landing/>);
 }
 
 export default App;

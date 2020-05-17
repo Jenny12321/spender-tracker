@@ -8,7 +8,7 @@ import FadeIn from "react-fade-in";
 import { useHistory } from "react-router-dom";
 
 
-function RegisterForm() {
+export default function RegisterForm() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [validated, setValidated] = useState(true);
@@ -28,7 +28,6 @@ function RegisterForm() {
             success: function(response){
                 let k=response;
                 if (k.success) {
-                    // TODO: change
                     history.push('/home');
                     setValidated(true);
                     setError("");
@@ -73,5 +72,3 @@ function RegisterForm() {
         </FadeIn>
     );
 }
-
-export default withRouter(RegisterForm)
