@@ -6,6 +6,7 @@ import "../styles/Login.css";
 import {withRouter} from 'react-router-dom';
 import FadeIn from "react-fade-in";
 import { useHistory } from "react-router-dom";
+import Cookies from "js-cookie";
 
 
 export default function RegisterForm() {
@@ -28,6 +29,7 @@ export default function RegisterForm() {
             success: function(response){
                 let k=response;
                 if (k.success) {
+                    Cookies.set('user', username);
                     history.push('/home');
                     setValidated(true);
                     setError("");

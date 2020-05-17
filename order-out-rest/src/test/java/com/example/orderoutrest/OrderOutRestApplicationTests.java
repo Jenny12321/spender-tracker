@@ -26,12 +26,19 @@ class OrderOutRestApplicationTests {
 
 	@Test
 	void expense() throws IOException {
-		UserController userController = new UserController();
-		assert userController.login("user1", "abc").getMessage().equals("200");
+//		UserController userController = new UserController();
+//		assert userController.login("user1", "abc").getMessage().equals("200");
 
 		ExpensesController controller = new ExpensesController();
-		controller.addExpense("Tims", "2020-02-02","3.10");
+		controller.addExpense("user1","Tims", "2020-02-02","3.10");
 
-		System.out.println(controller.getExpenses().get(0).getCost());
+		System.out.println(controller.getExpenses("user1").get(0).getCost());
+	}
+
+	@Test
+	void progress() throws IOException {
+		ProgressController controller = new ProgressController();
+
+		System.out.println(controller.setProgress("user1", "50", "10"));
 	}
 }

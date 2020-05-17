@@ -1,0 +1,10 @@
+@media all and (min-width: 480px) {
+    .entries-button {
+        margin: 0.7rem auto;
+    }
+
+    .entries-content {
+        margin: auto auto;
+        max-width: 100vh;
+    }
+}

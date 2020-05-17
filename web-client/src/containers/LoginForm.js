@@ -6,9 +6,10 @@ import "../styles/Login.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import FadeIn from "react-fade-in";
 import { useHistory } from "react-router-dom";
+import Cookies from 'js-cookie';
 
 export default function LoginForm() {
-    const [username, setUsername] = useState("");
+    const [username, setUsername] = useState("a");
     const [password, setPassword] = useState("");
     const [validated, setValidated] = useState(true);
     const [error, setError] = useState("");
@@ -32,6 +33,7 @@ export default function LoginForm() {
             success: function(response){
                 let k=response;
                 if (k.success) {
+                    Cookies.set('user', username);
                     history.push('/home');
                     setValidated(true);
                     setError("");

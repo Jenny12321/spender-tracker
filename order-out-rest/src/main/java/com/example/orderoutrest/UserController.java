@@ -79,8 +79,8 @@ public class UserController {
             Table progressTable = table(progressTableName);
             String createTableQProg = create.createTable(progressTable)
                     .column(Progress.percentOrder, SQLDataType.INTEGER)
-                    .column(Progress.budget, SQLDataType.DECIMAL(100, 0))
-                    .column(Progress.spent, SQLDataType.DECIMAL(100, 0))
+                    .column(Progress.budget, SQLDataType.DECIMAL(100, 2))
+                    .column(Progress.spent, SQLDataType.DECIMAL(100, 2))
                     .column(Progress.cookCount, SQLDataType.INTEGER)
                     .column(Progress.orderCount, SQLDataType.INTEGER)
                     .getSQL(ParamType.INLINED);

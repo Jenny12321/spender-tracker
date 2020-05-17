@@ -26,7 +26,8 @@ public class ExpensesController {
     // -------------------------- POST --------------------------
 
     @PostMapping("/addExpense")
-    public static String addExpense(@RequestParam(value = "vendor") String vendor,
+    public static String addExpense(@RequestParam(value="user") String user,
+                                    @RequestParam(value = "vendor") String vendor,
                                     @RequestParam(value = "date") String date,
                                     @RequestParam(value = "cost") String cost) {
         EnvironmentConfig env = new EnvironmentConfig();
@@ -37,6 +38,8 @@ public class ExpensesController {
 
         try (Connection connection = DriverManager.getConnection(env.URL, env.props)) {
             System.out.println("Connected to PostgreSQL database!");
+
+            setTableName(user);
 
             DSLContext create = DSL.using(connection, SQLDialect.POSTGRES);
 
@@ -61,7 +64,7 @@ public class ExpensesController {
     // -------------------------- GET --------------------------
 
     @GetMapping("/getExpenses")
-    public static ArrayList<ExpenseEntity> getExpenses() {
+    public static ArrayList<ExpenseEntity> getExpenses(@RequestParam(value="user") String user) {
         EnvironmentConfig env = new EnvironmentConfig();
 
         ArrayList<ExpenseEntity> expenses = new ArrayList<>();
@@ -69,6 +72,7 @@ public class ExpensesController {
         try (Connection connection = DriverManager.getConnection(env.URL, env.props)) {
 
             System.out.println("Connected to PostgreSQL database!");
+            setTableName(user);
 
             DSLContext create = DSL.using(connection, SQLDialect.POSTGRES);
 
@@ -90,6 +94,14 @@ public class ExpensesController {
         }
 
         return expenses;
+    }
+
+
+    // ----------------- helpers -----------------
+    private static void setTableName(String user) {
+        if (UserController.expensesTableName.equals(Expenses.tableName)) {
+            UserController.expensesTableName = user + ".expenses";
+        }
     }
 
 }

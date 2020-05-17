@@ -24,7 +24,8 @@ public class ProgressController {
     // -------------------------- POST --------------------------
 
     @PostMapping("/setProgress")
-    public static String setProgress(@RequestParam(value = "percentOrder") String percentOrder,
+    public static String setProgress(@RequestParam(value="user") String user,
+                                     @RequestParam(value = "percentOrder") String percentOrder,
                                      @RequestParam(value = "budget") String budget) {
         EnvironmentConfig env = new EnvironmentConfig();
 
@@ -35,17 +36,29 @@ public class ProgressController {
             System.out.println("Connected to PostgreSQL database!");
 
             DSLContext create = DSL.using(connection, SQLDialect.POSTGRES);
+            setTableName(user);
 
             Table progressTable = table(UserController.progressTableName);
-            String query = create.insertInto(progressTable)
-                    .set(field(Progress.percentOrder), progress.getPercentOrder())
-                    .set(field(Progress.budget), progress.getBudget())
-                    .set(field(Progress.spent), progress.getSpent())
-                    .set(field(Progress.cookCount), progress.getCookCount())
-                    .set(field(Progress.orderCount), progress.getOrderCount())
-                    .getSQL(ParamType.INLINED);
-            Statement statement = connection.createStatement();
-            statement.execute(query);
+
+            Result<Record> result = create.select().from(UserController.progressTableName).limit(1).fetch();
+            if (result.size() == 0) {
+                String query = create.insertInto(progressTable)
+                        .set(field(Progress.percentOrder), progress.getPercentOrder())
+                        .set(field(Progress.budget), progress.getBudget())
+                        .set(field(Progress.spent), progress.getSpent())
+                        .set(field(Progress.cookCount), progress.getCookCount())
+                        .set(field(Progress.orderCount), progress.getOrderCount())
+                        .getSQL(ParamType.INLINED);
+                Statement statement = connection.createStatement();
+                statement.execute(query);
+            } else {
+                String query = create.update(progressTable)
+                        .set(field(Progress.percentOrder), percentOrder)
+                        .set(field(Progress.budget), budget)
+                        .getSQL(ParamType.INLINED);
+                Statement statement = connection.createStatement();
+                statement.execute(query);
+            }
 
             return "200";
         } catch (Exception e) {
@@ -56,7 +69,8 @@ public class ProgressController {
     }
 
     @PostMapping("/addCookCount")
-    public static String addCookCount(@RequestParam(value = "count") String count) {
+    public static String addCookCount(@RequestParam(value="user") String user,
+                                      @RequestParam(value = "count") String count) {
         EnvironmentConfig env = new EnvironmentConfig();
 
         int addCount = Integer.parseInt(count);
@@ -65,6 +79,7 @@ public class ProgressController {
             System.out.println("Connected to PostgreSQL database!");
 
             DSLContext create = DSL.using(connection, SQLDialect.POSTGRES);
+            setTableName(user);
 
             Table progressTable = table(UserController.progressTableName);
             String query = create.update(progressTable)
@@ -82,7 +97,8 @@ public class ProgressController {
     }
 
     @PostMapping("/addOrderCount")
-    public static String addOrderCount(@RequestParam(value = "count") String count) {
+    public static String addOrderCount(@RequestParam(value="user") String user,
+                                       @RequestParam(value = "count") String count) {
         EnvironmentConfig env = new EnvironmentConfig();
 
         int addCount = Integer.parseInt(count);
@@ -91,6 +107,7 @@ public class ProgressController {
             System.out.println("Connected to PostgreSQL database!");
 
             DSLContext create = DSL.using(connection, SQLDialect.POSTGRES);
+            setTableName(user);
 
             Table progressTable = table(UserController.progressTableName);
             String query = create.update(progressTable)
@@ -108,7 +125,8 @@ public class ProgressController {
     }
 
     @PostMapping("/changePercentOrder")
-    public static String changePercentOrder(@RequestParam(value = "percent") String percent) {
+    public static String changePercentOrder(@RequestParam(value="user") String user,
+                                            @RequestParam(value = "percent") String percent) {
         EnvironmentConfig env = new EnvironmentConfig();
 
         int changePercent = Integer.parseInt(percent);
@@ -117,6 +135,7 @@ public class ProgressController {
             System.out.println("Connected to PostgreSQL database!");
 
             DSLContext create = DSL.using(connection, SQLDialect.POSTGRES);
+            setTableName(user);
 
             Table progressTable = table(UserController.progressTableName);
             String query = create.update(progressTable)
@@ -134,7 +153,8 @@ public class ProgressController {
     }
 
     @PostMapping("/changeBudget")
-    public static String changeBudget(@RequestParam(value = "budget") String budget) {
+    public static String changeBudget(@RequestParam(value="user") String user,
+                                      @RequestParam(value = "budget") String budget) {
         EnvironmentConfig env = new EnvironmentConfig();
 
         double changeBudget = Double.parseDouble(budget);
@@ -143,6 +163,8 @@ public class ProgressController {
             System.out.println("Connected to PostgreSQL database!");
 
             DSLContext create = DSL.using(connection, SQLDialect.POSTGRES);
+
+            setTableName(user);
 
             Table progressTable = table(UserController.progressTableName);
             String query = create.update(progressTable)
@@ -161,7 +183,7 @@ public class ProgressController {
 
     // -------------------------- GET --------------------------
     @GetMapping("/progress")
-    public static ProgressEntity getProgress() {
+    public static ProgressEntity getProgress(@RequestParam(value="user") String user) {
         EnvironmentConfig env = new EnvironmentConfig();
 
         try (Connection connection = DriverManager.getConnection(env.URL, env.props)) {
@@ -169,8 +191,9 @@ public class ProgressController {
             System.out.println("Connected to PostgreSQL database!");
 
             DSLContext create = DSL.using(connection, SQLDialect.POSTGRES);
-
-            Result<Record> result = create.select().from(UserController.expensesTableName).limit(1).fetch();
+            setTableName(user);
+            System.out.println(UserController.progressTableName);
+            Result<Record> result = create.select().from(UserController.progressTableName).limit(1).fetch();
 
             ProgressEntity progress = new ProgressEntity(
                     (Integer) result.get(0).get(Progress.percentOrder),
@@ -185,9 +208,18 @@ public class ProgressController {
         } catch (SQLException e) {
             System.out.println("Connection failure.");
             e.printStackTrace();
+        } catch (IndexOutOfBoundsException e) {
+            return new ProgressEntity(0, 0, 0, 0,0);
         }
 
         return null;
+    }
+
+    // ----------------- helpers -----------------
+    private static void setTableName(String user) {
+        if (UserController.progressTableName.equals(Progress.tableName)) {
+            UserController.progressTableName = user + ".progress";
+        }
     }
 
 }

@@ -4,6 +4,7 @@ import LoginForm from "./containers/LoginForm";
 import RegisterForm from "./containers/RegisterForm";
 import Landing from "./containers/Landing";
 import Home from "./containers/Home";
+import Entries from "./containers/Entries";
 
 export default class Routes extends Component {
     render() {
@@ -14,6 +15,7 @@ export default class Routes extends Component {
                     <Route exact path="/register" component={withRouter(RegisterForm)}/>
                     <Route exact path="/landing" component={withRouter(Landing)}/>
                     <Route exact path="/home" component={withRouter(Home)}/>
+                    <Route exact path="/entries" component={withRouter(Entries)}/>
                     <Redirect exact path="/" to="landing"/>
                 </Switch>
             </Router>

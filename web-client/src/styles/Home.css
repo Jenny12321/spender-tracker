@@ -1,0 +1,39 @@
+@media all and (min-width: 480px) {
+    .HomeLogo{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        max-height: 20vh;
+    }
+
+    .progress-content {
+        margin: auto 20rem;
+    }
+
+    .progress-label {
+        margin: 5px 0;
+    }
+
+    .card-icon {
+        max-width: 2rem;
+        margin: 0 10px 0 0;
+    }
+
+    .progress-group {
+        margin: 3rem 0;
+    }
+
+    .progress-cards {
+        margin: 0.8rem auto;
+    }
+
+    .progress-cards button {
+        float: right;
+    }
+
+    .right-align {
+        float: right;
+        margin: auto 0.3rem;
+    }
+}

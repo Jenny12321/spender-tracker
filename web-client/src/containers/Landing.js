@@ -9,7 +9,7 @@ export default function Landing() {
     return (
         <div className="Landing">
             <FadeIn delay={1000}>
-                <img className="Logo" src={require("../logo/cover.png")}/>
+                <img className="Logo" src={require("../images/cover.png")}/>
                 <ButtonGroup>
                     <Button onClick={() => history.push('/login')} className="buttons" variant="primary" type="button" >
                         Login
