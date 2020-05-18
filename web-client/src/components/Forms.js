@@ -9,9 +9,8 @@ let progressBudget = 0;
 
 // let history = useHistory();
 
-function handleSubmitProgress(event) {
-    // event.preventDefault();
-    console.log("ENTER");
+export function handleSubmitProgress(event, changePercent, changeBudget, closeForm) {
+    event.preventDefault();
     const user = Cookies.get('user');
     Cookies.set('progressPercent', progressPercent.value);
     Cookies.set('progressBudget', progressBudget.value);
@@ -23,14 +22,17 @@ function handleSubmitProgress(event) {
             "&budget=" + progressBudget.value,
         data: '',
         success: function(response){
-
+            changePercent(progressPercent.value);
+            changeBudget(progressBudget.value);
+            closeForm();
         }
     });
 }
 
 export const ProgressForm = (props) => {
     return (
-        <Form onSubmit={handleSubmitProgress}{...props.handleClose}>
+        // eslint-disable-next-line no-restricted-globals
+        <Form onSubmit={() => handleSubmitProgress(event, props.changePercent, props.changeBudget, props.handleCloseForm)}>
             <Form.Group controlId="formGridPercent">
                 <Form.Label>Percentage of cooked meals (%)</Form.Label>
                 <Form.Control type="number" placeholder="50" ref={(input) => progressPercent = input}/>

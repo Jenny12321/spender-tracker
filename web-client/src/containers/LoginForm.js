@@ -9,7 +9,7 @@ import { useHistory } from "react-router-dom";
 import Cookies from 'js-cookie';
 
 export default function LoginForm() {
-    const [username, setUsername] = useState("a");
+    const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [validated, setValidated] = useState(true);
     const [error, setError] = useState("");

@@ -22,13 +22,16 @@ export const ConfirmationModal = (props) => {
 };
 
 export const ProgressFormModal = (props) => {
+    const handleClose = props.disableClose ? () => {} : props.handleClose;
     return (
-        <Modal show={props.show} onHide={props.handleClose} animation={false}>
+        <Modal show={props.show} onHide={handleClose} animation={false}>
             <Modal.Header {...props.closeButton}>
                 <Modal.Title>Change Goals</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <ProgressForm handleClose={props.handleClose}/>
+                <ProgressForm changePercent={props.changePercent}
+                              changeBudget={props.changeBudget}
+                              handleCloseForm={props.handleClose}/>
             </Modal.Body>
             {/*<Modal.Footer>
                 <Button disabled={!props.closeButton} variant="outline-secondary" onClick={props.handleClose}>
