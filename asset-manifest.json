@@ -1,29 +1,29 @@
 {
   "files": {
-    "main.css": "/order-out-tracker/static/css/main.01c8b783.chunk.css",
-    "main.js": "/order-out-tracker/static/js/main.bcd93bf6.chunk.js",
-    "main.js.map": "/order-out-tracker/static/js/main.bcd93bf6.chunk.js.map",
-    "runtime-main.js": "/order-out-tracker/static/js/runtime-main.599d26cb.js",
-    "runtime-main.js.map": "/order-out-tracker/static/js/runtime-main.599d26cb.js.map",
-    "static/css/2.af3c1da9.chunk.css": "/order-out-tracker/static/css/2.af3c1da9.chunk.css",
-    "static/js/2.b0317969.chunk.js": "/order-out-tracker/static/js/2.b0317969.chunk.js",
-    "static/js/2.b0317969.chunk.js.map": "/order-out-tracker/static/js/2.b0317969.chunk.js.map",
-    "index.html": "/order-out-tracker/index.html",
-    "precache-manifest.0c52d209a0fd848bfce9651e9af05bfb.js": "/order-out-tracker/precache-manifest.0c52d209a0fd848bfce9651e9af05bfb.js",
-    "service-worker.js": "/order-out-tracker/service-worker.js",
-    "static/css/2.af3c1da9.chunk.css.map": "/order-out-tracker/static/css/2.af3c1da9.chunk.css.map",
-    "static/css/main.01c8b783.chunk.css.map": "/order-out-tracker/static/css/main.01c8b783.chunk.css.map",
-    "static/js/2.b0317969.chunk.js.LICENSE.txt": "/order-out-tracker/static/js/2.b0317969.chunk.js.LICENSE.txt",
-    "static/media/business.png": "/order-out-tracker/static/media/business.44030cf3.png",
-    "static/media/chef.png": "/order-out-tracker/static/media/chef.17dd6d61.png",
-    "static/media/cover.png": "/order-out-tracker/static/media/cover.0820dd1e.png",
-    "static/media/junk-food.png": "/order-out-tracker/static/media/junk-food.74a55bf8.png"
+    "main.css": "/order-out-tracker/tree/master/web-client/static/css/main.01c8b783.chunk.css",
+    "main.js": "/order-out-tracker/tree/master/web-client/static/js/main.4c3c3aa2.chunk.js",
+    "main.js.map": "/order-out-tracker/tree/master/web-client/static/js/main.4c3c3aa2.chunk.js.map",
+    "runtime-main.js": "/order-out-tracker/tree/master/web-client/static/js/runtime-main.eb7a6a9f.js",
+    "runtime-main.js.map": "/order-out-tracker/tree/master/web-client/static/js/runtime-main.eb7a6a9f.js.map",
+    "static/css/2.af3c1da9.chunk.css": "/order-out-tracker/tree/master/web-client/static/css/2.af3c1da9.chunk.css",
+    "static/js/2.b0317969.chunk.js": "/order-out-tracker/tree/master/web-client/static/js/2.b0317969.chunk.js",
+    "static/js/2.b0317969.chunk.js.map": "/order-out-tracker/tree/master/web-client/static/js/2.b0317969.chunk.js.map",
+    "index.html": "/order-out-tracker/tree/master/web-client/index.html",
+    "precache-manifest.d2e0539561a6e0c0f42286c7dbef193e.js": "/order-out-tracker/tree/master/web-client/precache-manifest.d2e0539561a6e0c0f42286c7dbef193e.js",
+    "service-worker.js": "/order-out-tracker/tree/master/web-client/service-worker.js",
+    "static/css/2.af3c1da9.chunk.css.map": "/order-out-tracker/tree/master/web-client/static/css/2.af3c1da9.chunk.css.map",
+    "static/css/main.01c8b783.chunk.css.map": "/order-out-tracker/tree/master/web-client/static/css/main.01c8b783.chunk.css.map",
+    "static/js/2.b0317969.chunk.js.LICENSE.txt": "/order-out-tracker/tree/master/web-client/static/js/2.b0317969.chunk.js.LICENSE.txt",
+    "static/media/business.png": "/order-out-tracker/tree/master/web-client/static/media/business.44030cf3.png",
+    "static/media/chef.png": "/order-out-tracker/tree/master/web-client/static/media/chef.17dd6d61.png",
+    "static/media/cover.png": "/order-out-tracker/tree/master/web-client/static/media/cover.0820dd1e.png",
+    "static/media/junk-food.png": "/order-out-tracker/tree/master/web-client/static/media/junk-food.74a55bf8.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.599d26cb.js",
+    "static/js/runtime-main.eb7a6a9f.js",
     "static/css/2.af3c1da9.chunk.css",
     "static/js/2.b0317969.chunk.js",
     "static/css/main.01c8b783.chunk.css",
-    "static/js/main.bcd93bf6.chunk.js"
+    "static/js/main.4c3c3aa2.chunk.js"
   ]
 }
