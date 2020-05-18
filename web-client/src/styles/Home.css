@@ -7,6 +7,10 @@
         max-height: 20vh;
     }
 
+    .progress-buttons {
+
+    }
+
     .progress-content {
         margin: auto 20rem;
     }
@@ -21,11 +25,12 @@
     }
 
     .progress-group {
-        margin: 3rem 0;
+        margin: 1rem 0 4rem 0;
+        /*margin: 3rem 0*/
     }
 
     .progress-cards {
-        margin: 0.8rem auto;
+        margin: 1rem auto;
     }
 
     .progress-cards button {

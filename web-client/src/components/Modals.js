@@ -13,7 +13,7 @@ export const ConfirmationModal = (props) => {
                 <Button variant="outline-secondary" onClick={props.handleClose}>
                     Cancel
                 </Button>
-                <Button variant="danger" onClick={props.handleClose}>
+                <Button variant="danger" onClick={props.handleConfirm}>
                     Yes
                 </Button>
             </Modal.Footer>

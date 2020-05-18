@@ -9,10 +9,10 @@ import Cookies from "js-cookie";
 
 export default function Entries() {
     let history = useHistory();
-    if (!Cookies.get('user')) {
+    const user = Cookies.get('user');
+    if (!user || user === "undefined") {
         history.push("/");
     }
-    const user = Cookies.get('user');
 
     const[showForm, setShowForm] = useState(false);
     const handleCloseForm = () => setShowForm(false);
@@ -27,7 +27,7 @@ export default function Entries() {
             <div className="HomeLogo">
                 <img className="Logo" src={require("../images/cover.png")}/>
             </div>
-            <FadeIn delay={700}>
+            <FadeIn delay={0}>
                 <div className="entries-content">
                     <Button className="entries-button"
                             size="sm"

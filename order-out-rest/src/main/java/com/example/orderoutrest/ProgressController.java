@@ -22,6 +22,33 @@ import static org.jooq.impl.DSL.table;
 public class ProgressController {
 
     // -------------------------- POST --------------------------
+    @PostMapping("/deleteProgress")
+    public static String deleteProgress(@RequestParam(value="user") String user) {
+        EnvironmentConfig env = new EnvironmentConfig();
+
+        try (Connection connection = DriverManager.getConnection(env.URL, env.props)) {
+            System.out.println("Connected to PostgreSQL database!");
+
+            DSLContext create = DSL.using(connection, SQLDialect.POSTGRES);
+            setTableName(user);
+
+            Table progressTable = table(UserController.progressTableName);
+            String query = create.truncate(progressTable)
+                    .getSQL(ParamType.INLINED);
+            Statement statement = connection.createStatement();
+            statement.execute(query);
+
+            query = create.deleteFrom(progressTable)
+                    .getSQL(ParamType.INLINED);
+            statement.execute(query);
+
+            return "200";
+        } catch (Exception e) {
+            System.out.println("Connection failure.");
+            e.printStackTrace();
+            return e.getMessage();
+        }
+    }
 
     @PostMapping("/setProgress")
     public static String setProgress(@RequestParam(value="user") String user,
