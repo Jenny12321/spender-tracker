@@ -1,6 +1,7 @@
 import React from "react";
 import {Button, Modal} from "react-bootstrap";
 import {EntryForm, ProgressForm} from "./Forms";
+import Cookies from "js-cookie";
 
 export const ConfirmationModal = (props) => {
     return (
@@ -52,16 +53,16 @@ export const EntryFormModal = (props) => {
                 <Modal.Title>I Ordered Out!</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-                <EntryForm/>
+                <EntryForm addEntry={props.addEntry}/>
             </Modal.Body>
-            <Modal.Footer>
+            {/*<Modal.Footer>
                 <Button variant="outline-secondary" onClick={props.handleClose}>
                     Cancel
                 </Button>
-                <Button variant="success" onClick={props.handleClose}>
+                <Button variant="success" onClick={handleSubmitForm}>
                     Add
                 </Button>
-            </Modal.Footer>
+            </Modal.Footer>*/}
         </Modal>
     )
 };

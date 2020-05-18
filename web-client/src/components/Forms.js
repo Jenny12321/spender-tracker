@@ -7,7 +7,8 @@ import {useHistory} from "react-router-dom";
 let progressPercent = 0;
 let progressBudget = 0;
 
-// let history = useHistory();
+let vendor ="";
+let cost=0;
 
 export function handleSubmitProgress(event, changePercent, changeBudget, closeForm) {
     event.preventDefault();
@@ -25,6 +26,23 @@ export function handleSubmitProgress(event, changePercent, changeBudget, closeFo
             changePercent(progressPercent.value);
             changeBudget(progressBudget.value);
             closeForm();
+        }
+    });
+}
+
+function handleSubmitEntry(event, addEntry) {
+    event.preventDefault();
+    $.ajax({
+        type: 'POST',
+        url: "https://order-out-tracker.herokuapp.com/addExpense?" +
+            "user=" + Cookies.get('user') +
+            "&vendor=" + vendor.value +
+            "&date=2020-01-01" +
+            "&cost=" + cost.value,
+        data: '',
+        dataType: 'json',
+        success: function(response){
+            addEntry(vendor.value, cost.value);
         }
     });
 }
@@ -51,16 +69,20 @@ export const ProgressForm = (props) => {
 
 export const EntryForm = (props) => {
     return (
-        <Form>
+        // eslint-disable-next-line no-restricted-globals
+        <Form onSubmit={() => handleSubmitEntry(event, props.addEntry)}>
             <Form.Group controlId="formGridVendor">
                 <Form.Label>Restaurant:</Form.Label>
-                <Form.Control type="text" placeholder="McDonald's" />
+                <Form.Control type="text" placeholder="McDonald's" ref={(input) => vendor = input}/>
             </Form.Group>
 
             <Form.Group controlId="formGridCost">
                 <Form.Label>Cost ($)</Form.Label>
-                <Form.Control type="number" placeholder="$12.00" />
+                <Form.Control type="number" placeholder="$12.00" ref={(input) => cost = input}/>
             </Form.Group>
+            <Button type="submit" variant="success">
+                Add
+            </Button>
         </Form>
     )
 };

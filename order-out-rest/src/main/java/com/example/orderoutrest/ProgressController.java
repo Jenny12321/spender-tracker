@@ -2,6 +2,7 @@ package com.example.orderoutrest;
 
 import com.example.objects.ProgressEntity;
 import com.example.restservices.EnvironmentConfig;
+import com.example.tables.Expenses;
 import com.example.tables.Progress;
 import org.jooq.*;
 import org.jooq.conf.ParamType;
@@ -14,8 +15,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import static org.jooq.impl.DSL.field;
-import static org.jooq.impl.DSL.table;
+import static org.jooq.impl.DSL.*;
 
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 @RestController
@@ -219,7 +219,22 @@ public class ProgressController {
 
             DSLContext create = DSL.using(connection, SQLDialect.POSTGRES);
             setTableName(user);
+            ExpensesController.setTableName(user);
             System.out.println(UserController.progressTableName);
+
+            Table progressTable = table(UserController.progressTableName);
+            Table expensesTable = table(UserController.expensesTableName);
+
+            Result<Record1<BigDecimal>> sumResult = create.select(sum(field(Expenses.cost, Integer.class)))
+                    .from(UserController.expensesTableName).fetch();
+            BigDecimal sum = (BigDecimal) sumResult.get(0).get("sum");
+
+            String query = create.update(progressTable)
+                    .set(field(Progress.spent), sum)
+                    .getSQL(ParamType.INLINED);
+            Statement statement = connection.createStatement();
+            statement.execute(query);
+
             Result<Record> result = create.select().from(UserController.progressTableName).limit(1).fetch();
 
             ProgressEntity progress = new ProgressEntity(

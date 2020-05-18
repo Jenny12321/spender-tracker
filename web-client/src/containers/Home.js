@@ -43,8 +43,13 @@ export default class Home extends React.Component {
         this.handleResetProgress = this.handleResetProgress.bind(this);
     }
 
-    componentDidMount(props) {
-        console.log('I mounted! Here are my props: ', props);
+    componentWillMount() {
+        clearInterval(this.interval);
+    }
+
+    componentDidMount() {
+        this.interval = setInterval(() => this.setState({ time: Date.now() }), 1000);
+
         $.ajax({
             type: 'GET',
             url: "https://order-out-tracker.herokuapp.com/progress?" +
@@ -70,13 +75,13 @@ export default class Home extends React.Component {
     changePercent(value) {
         this.setState(() => {
             return {percent: parseInt(value)};
-        }, () => console.log(this.state.percent));
+        });
     }
 
     changeBudget(value) {
         this.setState(() => {
             return {budget: parseInt(value)};
-        }, () => console.log(this.state.budget));
+        });
     }
 
     handleLogOut(event) {
@@ -96,12 +101,12 @@ export default class Home extends React.Component {
     getProgressVariant(actual, goal) {
         const diff = actual - goal;
         switch (true) {
-            case (diff > 25):
+            case (diff >= 0):
                 return 'success';
-            case (diff < 12):
-                return 'danger';
-            default:
+            case (diff > 12):
                 return 'warning';
+            default:
+                return 'danger';
         }
     }
 
@@ -127,6 +132,7 @@ export default class Home extends React.Component {
     }
 
      handleAddCooked() {
+        let mealsCooked = parseInt(this.state.mealsCooked);
         $.ajax({
             type: 'POST',
             url: "https://order-out-tracker.herokuapp.com/addCookCount?" +
@@ -135,17 +141,18 @@ export default class Home extends React.Component {
             data: '',
             dataType: 'json',
             success: function () {
-                const newCooked = parseInt(this.state.mealsCooked) + 1;
+                const newCooked = mealsCooked + 1;
                 Cookies.set('mealsCooked', newCooked);
             }
         });
         this.setState((state) => {
             return {mealsCooked: parseInt(state.mealsCooked) + 1};
-        }, () => console.log(this.state.mealsCooked));
+        });
     }
 
      handleAddTakeout() {
-        $.ajax({
+         let mealsBought = parseInt(this.state.mealsBought);
+         $.ajax({
             type: 'POST',
             url: "https://order-out-tracker.herokuapp.com/addOrderCount?" +
                 "user=" + Cookies.get('user') +
@@ -153,13 +160,13 @@ export default class Home extends React.Component {
             data: '',
             dataType: 'json',
             success: function () {
-                const newBought = parseInt(this.state.mealsBought) + 1;
+                const newBought = mealsBought + 1;
                 Cookies.set('mealsBought', newBought);
             }
         });
          this.setState((state) => {
              return {mealsBought: parseInt(state.mealsBought) + 1};
-         }, () => console.log(this.state.mealsBought));
+         });
     }
 
     handleReset() {
@@ -194,7 +201,8 @@ export default class Home extends React.Component {
         const goal = parseInt(this.state.percent);
         const mealsCooked = parseInt(this.state.mealsCooked);
         const mealsBought = parseInt(this.state.mealsBought);
-        const actual = (mealsBought + mealsCooked) === 0 ? 0 : mealsCooked / (mealsBought + mealsCooked) * 100;
+        let actual = (mealsBought + mealsCooked) === 0 ? 0 : mealsCooked / (mealsBought + mealsCooked) * 100;
+        actual = actual.toFixed(0);
         return (
             <div className="Home">
                 <div className="HomeLogo">

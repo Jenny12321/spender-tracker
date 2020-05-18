@@ -98,7 +98,7 @@ public class ExpensesController {
 
 
     // ----------------- helpers -----------------
-    private static void setTableName(String user) {
+     static void setTableName(String user) {
         if (UserController.expensesTableName.equals(Expenses.tableName)) {
             UserController.expensesTableName = user + ".expenses";
         }
