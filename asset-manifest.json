@@ -1,0 +1,29 @@
+{
+  "files": {
+    "main.css": "/Jenny12321/order-out-tracker/tree/master/web-client/static/css/main.01c8b783.chunk.css",
+    "main.js": "/Jenny12321/order-out-tracker/tree/master/web-client/static/js/main.be170f81.chunk.js",
+    "main.js.map": "/Jenny12321/order-out-tracker/tree/master/web-client/static/js/main.be170f81.chunk.js.map",
+    "runtime-main.js": "/Jenny12321/order-out-tracker/tree/master/web-client/static/js/runtime-main.3efd607f.js",
+    "runtime-main.js.map": "/Jenny12321/order-out-tracker/tree/master/web-client/static/js/runtime-main.3efd607f.js.map",
+    "static/css/2.af3c1da9.chunk.css": "/Jenny12321/order-out-tracker/tree/master/web-client/static/css/2.af3c1da9.chunk.css",
+    "static/js/2.b0317969.chunk.js": "/Jenny12321/order-out-tracker/tree/master/web-client/static/js/2.b0317969.chunk.js",
+    "static/js/2.b0317969.chunk.js.map": "/Jenny12321/order-out-tracker/tree/master/web-client/static/js/2.b0317969.chunk.js.map",
+    "index.html": "/Jenny12321/order-out-tracker/tree/master/web-client/index.html",
+    "precache-manifest.38e7495b2f10fdb90b39d301c5e7ad56.js": "/Jenny12321/order-out-tracker/tree/master/web-client/precache-manifest.38e7495b2f10fdb90b39d301c5e7ad56.js",
+    "service-worker.js": "/Jenny12321/order-out-tracker/tree/master/web-client/service-worker.js",
+    "static/css/2.af3c1da9.chunk.css.map": "/Jenny12321/order-out-tracker/tree/master/web-client/static/css/2.af3c1da9.chunk.css.map",
+    "static/css/main.01c8b783.chunk.css.map": "/Jenny12321/order-out-tracker/tree/master/web-client/static/css/main.01c8b783.chunk.css.map",
+    "static/js/2.b0317969.chunk.js.LICENSE.txt": "/Jenny12321/order-out-tracker/tree/master/web-client/static/js/2.b0317969.chunk.js.LICENSE.txt",
+    "static/media/business.png": "/Jenny12321/order-out-tracker/tree/master/web-client/static/media/business.44030cf3.png",
+    "static/media/chef.png": "/Jenny12321/order-out-tracker/tree/master/web-client/static/media/chef.17dd6d61.png",
+    "static/media/cover.png": "/Jenny12321/order-out-tracker/tree/master/web-client/static/media/cover.0820dd1e.png",
+    "static/media/junk-food.png": "/Jenny12321/order-out-tracker/tree/master/web-client/static/media/junk-food.74a55bf8.png"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.3efd607f.js",
+    "static/css/2.af3c1da9.chunk.css",
+    "static/js/2.b0317969.chunk.js",
+    "static/css/main.01c8b783.chunk.css",
+    "static/js/main.be170f81.chunk.js"
+  ]
+}
