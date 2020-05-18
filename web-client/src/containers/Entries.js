@@ -1,5 +1,4 @@
-/* global $ */
-
+import $ from 'jquery'
 import React from "react";
 import {Button, Table} from "react-bootstrap";
 import FadeIn from "react-fade-in";

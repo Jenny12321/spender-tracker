@@ -1,5 +1,4 @@
-/* global $ */
-
+import $ from 'jquery'
 import React, { useState } from "react";
 import {Button, FormGroup, Form, Alert} from "react-bootstrap";
 import "../styles/Login.css";

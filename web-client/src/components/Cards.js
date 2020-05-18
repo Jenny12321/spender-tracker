@@ -1,4 +1,3 @@
-/* global $ */
 import Card from "react-bootstrap/Card";
 import {Button} from "react-bootstrap";
 import React, {useState} from "react";

@@ -1,4 +1,4 @@
-/* global $ */
+import $ from 'jquery'
 import React from "react";
 import {Button, Form} from "react-bootstrap";
 import Cookies from "js-cookie";

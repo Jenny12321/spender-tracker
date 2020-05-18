@@ -1,5 +1,3 @@
-/* global $ */
-
 import {Button, ButtonGroup, ProgressBar} from "react-bootstrap";
 import FadeIn from "react-fade-in";
 import React from "react";
@@ -8,7 +6,7 @@ import Card from "react-bootstrap/Card";
 import {ConfirmationModal, ProgressFormModal} from "../components/Modals";
 import Cookies from "js-cookie";
 import {CardComponent} from "../components/Cards";
-
+import $ from 'jquery'
 
 export default class Home extends React.Component {
     constructor(props) {
@@ -49,7 +47,6 @@ export default class Home extends React.Component {
 
     componentDidMount() {
         this.interval = setInterval(() => this.setState({ time: Date.now() }), 1000);
-
         $.ajax({
             type: 'GET',
             url: "https://order-out-tracker.herokuapp.com/progress?" +
