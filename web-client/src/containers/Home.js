@@ -17,17 +17,17 @@ export default class Home extends React.Component {
         if (!user || user === "undefined") {
             this.props.history.push("/");
         }
-        const percent = parseFloat(Cookies.get('percentOrder'));
-        const budget = parseFloat(Cookies.get('budget'));
+        const percent = 0;//parseFloat(Cookies.get('percentOrder'));
+        const budget = 0;//parseFloat(Cookies.get('budget'));
         this.state = {
             showReset : false,
             showForm: !percent && !budget,
             progressCloseButton: !percent && !budget,
             percent: percent,
             budget: budget,
-            spent: parseFloat(Cookies.get('spent')),
-            mealsCooked: Cookies.get('mealsCooked'),
-            mealsBought: Cookies.get('mealsBought')
+            spent: 0,// parseFloat(Cookies.get('spent')),
+            mealsCooked: 0,//Cookies.get('mealsCooked'),
+            mealsBought: 0,//Cookies.get('mealsBought')
         };
 
         this.handleReset = this.handleReset.bind(this);
@@ -66,7 +66,22 @@ export default class Home extends React.Component {
                 Cookies.set('mealsCooked', mealsCooked);
                 Cookies.set('mealsBought', mealsBought);
             }
-        });
+        }).done(() => {
+            const percent = parseFloat(Cookies.get('percentOrder'));
+            const budget = parseFloat(Cookies.get('budget'));
+            this.setState(() => {
+                return {
+                    showReset : false,
+                    showForm: !percent && !budget,
+                    progressCloseButton: !percent && !budget,
+                    percent: percent,
+                    budget: budget,
+                    spent: parseFloat(Cookies.get('spent')),
+                    mealsCooked: Cookies.get('mealsCooked'),
+                    mealsBought: Cookies.get('mealsBought')
+                };
+            });
+        })
     }
 
     changePercent(value) {
@@ -81,9 +96,16 @@ export default class Home extends React.Component {
         });
     }
 
+    clearAllCookies() {
+        Object.keys(Cookies.get()).forEach(function(cookieName) {
+            Cookies.remove(cookieName);
+        });
+    }
+
     handleLogOut(event) {
         Cookies.set('user', undefined);
         this.props.history.push("/");
+        this.clearAllCookies();
     }
 
     handleOpenEntries(event) {
@@ -194,7 +216,8 @@ export default class Home extends React.Component {
         const budget = parseInt(this.state.budget);
         const spent = parseInt(this.state.spent);
         const spentPercentage = spent / budget * 100;
-        const budgetLeft = budget === 0 && spent === 0 ? 0 : budget === 0 ? 100 : 100 - spentPercentage;
+        let budgetLeft = budget === 0 && spent === 0 ? 0 : budget === 0 ? 100 : 100 - spentPercentage;
+        budgetLeft = budgetLeft.toFixed(0);
         const goal = parseInt(this.state.percent);
         const mealsCooked = parseInt(this.state.mealsCooked);
         const mealsBought = parseInt(this.state.mealsBought);

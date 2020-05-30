@@ -12,14 +12,15 @@ export default class Entries extends React.Component {
         super(props);
 
         const user = Cookies.get('user');
-        console.log(user);
         if (!user || user === "undefined") {
             this.props.history.push("/");
         }
 
+        // const entries = Cookies.get('entries') ? Cookies.get('entries') : "[]";
+
         this.state = {
             showForm: false,
-            entries: JSON.parse(Cookies.get('entries'))
+            entries: []
         };
 
         this.handleForm.bind(this);
@@ -35,9 +36,19 @@ export default class Entries extends React.Component {
             data: '',
             dataType: 'json',
             success: function(response){
-                const entries = response;
+                const entries = response ? response : "{}";
+                console.log(entries);
                 Cookies.set('entries', entries);
             }
+        }).done(() => {
+            const entries = Cookies.get('entries') ? Cookies.get('entries') : "[]";
+
+            this.setState(() => {
+                return {
+                    showForm: false,
+                    entries: JSON.parse(entries)
+                }
+            });
         });
     }
 

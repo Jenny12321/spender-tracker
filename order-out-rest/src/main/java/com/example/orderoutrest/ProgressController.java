@@ -227,7 +227,7 @@ public class ProgressController {
 
             Result<Record1<BigDecimal>> sumResult = create.select(sum(field(Expenses.cost, Integer.class)))
                     .from(UserController.expensesTableName).fetch();
-            BigDecimal sum = (BigDecimal) sumResult.get(0).get("sum");
+            BigDecimal sum = sumResult.get(0).get("sum") == null ? BigDecimal.ZERO : (BigDecimal) sumResult.get(0).get("sum");
 
             String query = create.update(progressTable)
                     .set(field(Progress.spent), sum)

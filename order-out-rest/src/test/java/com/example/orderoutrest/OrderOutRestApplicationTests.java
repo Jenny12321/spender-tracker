@@ -39,6 +39,6 @@ class OrderOutRestApplicationTests {
 	void progress() throws IOException {
 		ProgressController controller = new ProgressController();
 
-		System.out.println(controller.getProgress("user1"));
+		System.out.println(controller.getProgress("user5"));
 	}
 }

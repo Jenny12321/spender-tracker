@@ -17,7 +17,6 @@ export default function RegisterForm() {
 
     function handleSubmit(event) {
         event.preventDefault();
-
         $.ajax({
             type: 'POST',
             url: "https://order-out-tracker.herokuapp.com/createAccount?" +

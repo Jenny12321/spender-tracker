@@ -3,11 +3,13 @@ import React from "react";
 
 
 export function renderTableRows(entry, index) {
+    console.log(entry.cost);
+    // debugger;
     return (
         <tr>
             <td>{index+1}</td>
             <td>{entry.vendor}</td>
-            <td>${entry.cost.toFixed(2)}</td>
+            <td>${parseInt(entry.cost).toFixed(2)}</td>
         </tr>
     );
 }
@@ -16,7 +18,7 @@ export function renderTableBody(entries) {
     const rows = entries;
     return (
         <tbody>
-        {rows.map((entry, index) => {
+        {rows.length !== 0 && rows.map((entry, index) => {
             return renderTableRows(entry, index)
         })}
         </tbody>
