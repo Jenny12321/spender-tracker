@@ -41,4 +41,8 @@
         float: right;
         margin: auto 0.3rem;
     }
+
+    .count-buttons {
+        margin: 2px
+    }
 }

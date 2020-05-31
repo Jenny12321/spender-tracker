@@ -37,7 +37,9 @@ export default class Home extends React.Component {
         this.handleOpenEntries = this.handleOpenEntries.bind(this);
         this.handleLogOut = this.handleLogOut.bind(this);
         this.handleAddCooked = this.handleAddCooked.bind(this);
+        this.handleSubtractCooked = this.handleSubtractCooked.bind(this);
         this.handleAddTakeout = this.handleAddTakeout.bind(this);
+        this.handleSubtractTakeout = this.handleSubtractTakeout.bind(this);
         this.handleResetProgress = this.handleResetProgress.bind(this);
     }
 
@@ -154,9 +156,9 @@ export default class Home extends React.Component {
         let mealsCooked = parseInt(this.state.mealsCooked);
         $.ajax({
             type: 'POST',
-            url: "https://order-out-tracker.herokuapp.com/addCookCount?" +
+            url: "https://order-out-tracker.herokuapp.com/changeCookCount?" +
                 "user=" + Cookies.get('user') +
-                "&count=1",
+                "&action=add",
             data: '',
             dataType: 'json',
             success: function () {
@@ -169,13 +171,32 @@ export default class Home extends React.Component {
         });
     }
 
+     handleSubtractCooked() {
+        let mealsCooked = parseInt(this.state.mealsCooked);
+        $.ajax({
+            type: 'POST',
+            url: "https://order-out-tracker.herokuapp.com/changeCookCount?" +
+                "user=" + Cookies.get('user') +
+                "&action=subtract",
+            data: '',
+            dataType: 'json',
+            success: function () {
+                const newCooked = mealsCooked - 1;
+                Cookies.set('mealsCooked', newCooked);
+            }
+        });
+        this.setState((state) => {
+            return {mealsCooked: parseInt(state.mealsCooked) - 1};
+        });
+    }
+
      handleAddTakeout() {
          let mealsBought = parseInt(this.state.mealsBought);
          $.ajax({
             type: 'POST',
-            url: "https://order-out-tracker.herokuapp.com/addOrderCount?" +
+            url: "https://order-out-tracker.herokuapp.com/changeOrderCount?" +
                 "user=" + Cookies.get('user') +
-                "&count=1",
+                "&action=add",
             data: '',
             dataType: 'json',
             success: function () {
@@ -185,6 +206,25 @@ export default class Home extends React.Component {
         });
          this.setState((state) => {
              return {mealsBought: parseInt(state.mealsBought) + 1};
+         });
+    }
+
+     handleSubtractTakeout() {
+         let mealsBought = parseInt(this.state.mealsBought);
+         $.ajax({
+            type: 'POST',
+            url: "https://order-out-tracker.herokuapp.com/changeOrderCount?" +
+                "user=" + Cookies.get('user') +
+                "&action=subtract",
+            data: '',
+            dataType: 'json',
+            success: function () {
+                const newBought = mealsBought - 1;
+                Cookies.set('mealsBought', newBought);
+            }
+        });
+         this.setState((state) => {
+             return {mealsBought: parseInt(state.mealsBought) - 1};
          });
     }
 
@@ -276,15 +316,15 @@ export default class Home extends React.Component {
                             </div>
                             <CardComponent
                                 image={require("../images/chef.png")}
-                                buttonText={"+1"}
                                 handleAdd={(this.state.budget || this.state.percent)&&this.handleAddCooked}
+                                handleSubtract={(this.state.budget || this.state.percent)&&this.handleSubtractCooked}
                                 cardCategory={<b>Meals <i>cooked:</i></b>}
                                 cardStats={mealsCooked}
                             />
                             <CardComponent
                                 image={require("../images/junk-food.png")}
-                                buttonText={"+1"}
                                 handleAdd={(this.state.budget || this.state.percent)&&this.handleAddTakeout}
+                                handleSubtract={(this.state.budget || this.state.percent)&&this.handleSubtractTakeout}
                                 cardCategory={<b>Meals <i>bought:</i></b>}
                                 cardStats={mealsBought}
                             />

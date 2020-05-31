@@ -12,6 +12,7 @@ export default function LoginForm() {
     const [password, setPassword] = useState("");
     const [validated, setValidated] = useState(true);
     const [error, setError] = useState("");
+    const [isLoading, setLoading] = useState(false);
 
     let history = useHistory();
 
@@ -21,6 +22,7 @@ export default function LoginForm() {
 
     function handleSubmit(event) {
         event.preventDefault();
+        setLoading(true);
 
         $.ajax({
             type: 'GET',
@@ -34,6 +36,7 @@ export default function LoginForm() {
                 if (k.success) {
                     Cookies.set('user', username);
                     history.push('/home');
+                    setLoading(false);
                     setValidated(true);
                     setError("");
                 } else {
@@ -47,7 +50,7 @@ export default function LoginForm() {
 
     return (
         <div className="LoginForm">
-            <form onSubmit={handleSubmit}>
+            <form>
                 <FadeIn>
                     <Form>
                         <FormGroup controlId="formBasicEmail">
@@ -67,8 +70,12 @@ export default function LoginForm() {
                                 type="password"
                                 placeholder="Password" />
                         </FormGroup>
-                        <Button variant="primary" type="submit" disabled={!validateForm()}>
-                            Login
+                        <Button variant="primary"
+                                type="submit"
+                                disabled={!validateForm() || isLoading}
+                                onClick={!isLoading ? handleSubmit : null}
+                            >
+                            {isLoading ? 'Logging in...' : 'Login'}
                         </Button>
                         <Alert className="UserAlert" variant="danger" show={!validated}>{error}</Alert>
                     </Form>

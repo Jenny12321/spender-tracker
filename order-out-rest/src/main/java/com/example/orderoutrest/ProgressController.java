@@ -95,12 +95,11 @@ public class ProgressController {
         }
     }
 
-    @PostMapping("/addCookCount")
-    public static String addCookCount(@RequestParam(value="user") String user,
-                                      @RequestParam(value = "count") String count) {
+    @PostMapping("/changeCookCount")
+    public static String changeCookCount(@RequestParam(value="user") String user,
+                                      @RequestParam(value = "action") String action) {
         EnvironmentConfig env = new EnvironmentConfig();
 
-        int addCount = Integer.parseInt(count);
 
         try (Connection connection = DriverManager.getConnection(env.URL, env.props)) {
             System.out.println("Connected to PostgreSQL database!");
@@ -109,9 +108,16 @@ public class ProgressController {
             setTableName(user);
 
             Table progressTable = table(UserController.progressTableName);
-            String query = create.update(progressTable)
-                    .set(field(Progress.cookCount), field(Progress.cookCount).plus(addCount))
-                    .getSQL(ParamType.INLINED);
+            String query;
+            UpdateSetFirstStep createUpdateQ = create.update(progressTable);
+            if (action.equals("add")) {
+                query = createUpdateQ.set(field(Progress.cookCount), field(Progress.cookCount).plus(1))
+                        .getSQL(ParamType.INLINED);
+
+            } else {
+                query = createUpdateQ.set(field(Progress.cookCount), field(Progress.cookCount).subtract(1))
+                        .getSQL(ParamType.INLINED);
+            }
             Statement statement = connection.createStatement();
             statement.execute(query);
 
@@ -123,12 +129,10 @@ public class ProgressController {
         }
     }
 
-    @PostMapping("/addOrderCount")
-    public static String addOrderCount(@RequestParam(value="user") String user,
-                                       @RequestParam(value = "count") String count) {
+    @PostMapping("/changeOrderCount")
+    public static String changeOrderCount(@RequestParam(value="user") String user,
+                                       @RequestParam(value = "action") String action) {
         EnvironmentConfig env = new EnvironmentConfig();
-
-        int addCount = Integer.parseInt(count);
 
         try (Connection connection = DriverManager.getConnection(env.URL, env.props)) {
             System.out.println("Connected to PostgreSQL database!");
@@ -137,9 +141,15 @@ public class ProgressController {
             setTableName(user);
 
             Table progressTable = table(UserController.progressTableName);
-            String query = create.update(progressTable)
-                    .set(field(Progress.orderCount), field(Progress.orderCount).plus(addCount))
-                    .getSQL(ParamType.INLINED);
+            String query;
+            UpdateSetFirstStep createUpdateQ = create.update(progressTable);
+            if (action.equals("add")) {
+                query = createUpdateQ.set(field(Progress.orderCount), field(Progress.orderCount).plus(1))
+                        .getSQL(ParamType.INLINED);
+            } else {
+                query = createUpdateQ.set(field(Progress.orderCount), field(Progress.orderCount).subtract(1))
+                        .getSQL(ParamType.INLINED);
+            }
             Statement statement = connection.createStatement();
             statement.execute(query);
 

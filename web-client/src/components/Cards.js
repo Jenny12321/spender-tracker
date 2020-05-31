@@ -16,7 +16,8 @@ export const CardComponent = (props) => {
             <Card.Body>
                 <img className="card-icon" src={props.image}/>
                 {props.cardCategory} {props.cardStats}
-                <Button size="sm" variant="outline-primary" onClick={props.handleAdd}>{props.buttonText}</Button>
+                <Button className="count-buttons" size="sm" variant="outline-danger" onClick={props.handleSubtract}>-1</Button>
+                <Button className="count-buttons" size="sm" variant="outline-success" onClick={props.handleAdd}>+1</Button>
             </Card.Body>
         </Card>
     )

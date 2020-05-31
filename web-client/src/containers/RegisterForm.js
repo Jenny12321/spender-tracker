@@ -13,10 +13,12 @@ export default function RegisterForm() {
     const [password, setPassword] = useState("");
     const [validated, setValidated] = useState(true);
     const [error, setError] = useState("");
+    const [isLoading, setLoading] = useState(false);
     let history = useHistory();
 
     function handleSubmit(event) {
         event.preventDefault();
+        setLoading(true);
         $.ajax({
             type: 'POST',
             url: "https://order-out-tracker.herokuapp.com/createAccount?" +
@@ -29,6 +31,7 @@ export default function RegisterForm() {
                 if (k.success) {
                     Cookies.set('user', username);
                     history.push('/home');
+                    setLoading(false);
                     setValidated(true);
                     setError("");
                 } else {
@@ -43,7 +46,7 @@ export default function RegisterForm() {
     return (
         <FadeIn>
             <div className="RegisterForm">
-                <form onSubmit={handleSubmit}>
+                <form>
                     <Form>
                         <FormGroup controlId="formBasicEmail">
                             <Form.Label>Username</Form.Label>
@@ -62,8 +65,12 @@ export default function RegisterForm() {
                                 type="password"
                                 placeholder="Password" />
                         </FormGroup>
-                        <Button variant="primary" type="submit">
-                            Register
+                        <Button variant="primary"
+                                type="submit"
+                                disabled={isLoading}
+                                onClick={!isLoading ? handleSubmit : null}
+                        >
+                            {isLoading ? 'Registering...' : 'Register'}
                         </Button>
                         <Alert className="UserAlert" variant="danger" show={!validated}>{error}</Alert>
                     </Form>
